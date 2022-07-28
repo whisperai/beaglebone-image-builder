@@ -1,0 +1,12 @@
+version: 2.1
+
+jobs:
+  build-image:
+    machine:
+      image: ubuntu-2204:2022.04.1
+
+    steps:
+      - checkout
+      - run:
+        name: build_things
+        command: ./RootStock-NG.sh -c configs/bb.org-debian-bullseye-minimal-v5.10-ti-armhf.conf
