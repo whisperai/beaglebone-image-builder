@@ -8,6 +8,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Install Dependencies"
+          command: ./scripts/install_dependencies.sh
+      - run:
           name: "Step 1"
           command: ./RootStock-NG.sh -c configs/bb.org-debian-bullseye-minimal-v5.10-ti-armhf.conf
       - run:
