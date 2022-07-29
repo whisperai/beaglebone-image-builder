@@ -7,3 +7,5 @@ release
 .project
 
 .DS_Store
+.python-version
+.venv

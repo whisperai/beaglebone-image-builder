@@ -841,6 +841,10 @@ cat > "${DIR}/chroot_script.sh" <<-__EOF__
 		fi
 	}
 
+	install_custom_python () {
+		python3 -m pip install ${DIR}/custom_python
+	}
+
 	system_tweaks () {
 		echo "Log: (chroot): system_tweaks"
 		echo "[options]" > /etc/e2fsck.conf
@@ -1263,6 +1267,16 @@ cat > "${DIR}/chroot_script.sh" <<-__EOF__
 
 	}
 
+	function install_whisper_bbb() {
+		
+		
+		
+		
+		
+		
+		
+	}
+
 	#cat /chroot_script.sh
 	is_this_qemu
 	stop_init
@@ -1270,6 +1284,7 @@ cat > "${DIR}/chroot_script.sh" <<-__EOF__
 	install_pkg_updates
 	install_pkgs
 	install_python_pkgs
+	install_custom_python
 	system_tweaks
 	set_locale
 	if [ "x${chroot_not_reliable_deborphan}" = "xenable" ] ; then
