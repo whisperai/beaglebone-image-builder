@@ -841,10 +841,6 @@ cat > "${DIR}/chroot_script.sh" <<-__EOF__
 		fi
 	}
 
-	install_custom_python () {
-		python3 -m pip install ${DIR}/custom_python
-	}
-
 	system_tweaks () {
 		echo "Log: (chroot): system_tweaks"
 		echo "[options]" > /etc/e2fsck.conf
@@ -1274,7 +1270,6 @@ cat > "${DIR}/chroot_script.sh" <<-__EOF__
 	install_pkg_updates
 	install_pkgs
 	install_python_pkgs
-	install_custom_python
 	system_tweaks
 	set_locale
 	if [ "x${chroot_not_reliable_deborphan}" = "xenable" ] ; then
@@ -1325,6 +1320,7 @@ cat > "${DIR}/chroot_script.sh" <<-__EOF__
 	fi
 
 	rm -f /chroot_script.sh || true
+	rm -rf /custom_python || true
 __EOF__
 
 sudo mv "${DIR}/chroot_script.sh" "${tempdir}/chroot_script.sh"
@@ -1364,6 +1360,10 @@ if [ "x${include_firmware}" = "xenable" ] ; then
 	if [ -f "${DIR}/git/linux-firmware/mt7601u.bin" ] ; then
 		sudo cp "${DIR}/git/linux-firmware/mt7601u.bin" "${tempdir}/lib/firmware/mt7601u.bin"
 	fi
+fi
+
+if [ "x${include_custom_python}" = "xenable" ]; then
+	sudo cp -r "${DIR}/custom_python" "${tempdir}/custom_python"
 fi
 
 #repo_rcnee_sgx_preinstall: we've pre-selected ti335x or jacinto6evm, no decision on first bootup...
