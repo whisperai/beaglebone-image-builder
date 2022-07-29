@@ -8,5 +8,39 @@ jobs:
     steps:
       - checkout
       - run:
-        name: build_things
-        command: ./RootStock-NG.sh -c configs/bb.org-debian-bullseye-minimal-v5.10-ti-armhf.conf
+          name: "Install Dependencies"
+          command: |
+            ./scripts/install_dependencies.sh
+            sudo apt-get install tree
+      - run:
+          name: "Build the Whisper Beaglebone Image"
+          command: |
+            #image_name="${deb_distribution}-${release}-${image_type}-${deb_arch}-${time}"
+            time="$(date +%Y-%m-%d)"
+            image_name="debian-11.4-iot-armhf-${time}"
+            target="bbgg"
+            size="4gb"
+
+            # Generic build
+            ./RootStock-NG.sh -c configs/whisper-speedwagon-flex-test.conf
+
+            # Convert to a BeagleBone SD Image
+            cd deploy/${image_name}
+            sudo ./setup_sdcard.sh --img-4gb ${target}-${image_name} \
+              --dtb beaglebone --distro-bootloader --enable-cape-universal \
+              --enable-uboot-disable-pru --enable-bypass-bootup-scripts
+
+            # Compress
+            sudo xz -T0 -z -3 -v -v --verbose ${target}-${image_name}-${size}.img
+
+            # Move to artifact location
+            mkdir -p ~/final_output
+            mv ${target}-${image_name}-${size}.img.xz ~/final_output
+      - store_artifacts:
+          path: "~/final_output"
+
+
+workflows:
+  build-all:
+    jobs:
+      - build-image
