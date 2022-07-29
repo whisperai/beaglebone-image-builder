@@ -13,19 +13,31 @@ jobs:
             ./scripts/install_dependencies.sh
             sudo apt-get install tree
       - run:
-          name: "Build the Generic Image"
-          command: ./RootStock-NG.sh -c configs/bb.org-debian-bullseye-minimal-v5.10-ti-armhf.conf
-      - run:
-          name: "Convert to a BeagleBone SD Card Image"
+          name: "Build the Whisper Beaglebone Image"
           command: |
-            cd deploy/$(ls deploy | grep -v tar)
-            sudo ./setup_sdcard.sh --img-4gb am335x-debian-11.2-iot-armhf-2022-01-01 \
+            #image_name="${deb_distribution}-${release}-${image_type}-${deb_arch}-${time}"
+            time="$(date +%Y-%m-%d)"
+            image_name="debian-11.4-iot-armhf-${time}"
+            target="bbgg"
+            size="4gb"
+
+            # Generic build
+            ./RootStock-NG.sh -c configs/whisper-speedwagon-flex-test.conf
+
+            # Convert to a BeagleBone SD Image
+            cd deploy/${image_name}
+            sudo ./setup_sdcard.sh --img-4gb ${target}-${image_name} \
               --dtb beaglebone --distro-bootloader --enable-cape-universal \
               --enable-uboot-disable-pru --enable-bypass-bootup-scripts
-            sudo xz -T0 -z -3 -v -v --verbose am335x-debian-11.2-iot-armhf-2022-01-01-4gb.img
-            mv am335x-debian-11.2-iot-armhf-2022-01-01-4gb.img.xz ~/project/output.img.xz
+
+            # Compress
+            sudo xz -T0 -z -3 -v -v --verbose ${target}-${image_name}-${size}.img
+
+            # Move to artifact location
+            mkdir -p ~/final_output
+            mv ${target}-${image_name}-${size}.img.xz ~/final_output
       - store_artifacts:
-          path: "output.img.xz"
+          path: "~/final_output"
 
 
 workflows:
