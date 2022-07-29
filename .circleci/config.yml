@@ -28,7 +28,8 @@ jobs:
             cd deploy/${image_name}
             sudo ./setup_sdcard.sh --img-4gb ${target}-${image_name} \
               --dtb beaglebone --distro-bootloader --enable-cape-universal \
-              --enable-uboot-disable-pru --enable-bypass-bootup-scripts
+              --enable-uboot-disable-pru --enable-bypass-bootup-scripts \
+              --enable-uboot-disable-emmc --enable-uboot-disable-video
 
             # Compress
             sudo xz -T0 -z -3 -v -v --verbose ${target}-${image_name}-${size}.img
