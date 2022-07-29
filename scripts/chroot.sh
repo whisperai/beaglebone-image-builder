@@ -1267,16 +1267,6 @@ cat > "${DIR}/chroot_script.sh" <<-__EOF__
 
 	}
 
-	function install_whisper_bbb() {
-		
-		
-		
-		
-		
-		
-		
-	}
-
 	#cat /chroot_script.sh
 	is_this_qemu
 	stop_init
