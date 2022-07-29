@@ -31,11 +31,10 @@ __EOF__
   sudo chroot "${tempdir}" systemctl start configure_pins.service
   sudo chroot "${tempdir}" systemctl enable configure_pins.service
 }
+
 install_custom_python () {
-  python3 -m pip install /custom_python
+  ${tempdir}/usr/bin/python3 -m pip install ${DIR}/custom_python
 }
 
 enable_i2c1_on_startup
-if [ "x${include_custom_python}" = "xenable" ]; then
-  install_custom_python
-fi
+install_custom_python
