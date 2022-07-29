@@ -18,7 +18,7 @@ jobs:
       - run:
           name: "Step 2"
           command: |
-            cd tools
+            cd deploy/$(ls deploy | grep -v tar)
             sudo ./setup_sdcard.sh --img-4gb am335x-debian-11.2-iot-armhf-2022-01-01 \
               --dtb beaglebone --distro-bootloader --enable-cape-universal \
               --enable-uboot-disable-pru --enable-bypass-bootup-scripts
