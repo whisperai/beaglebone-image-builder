@@ -33,7 +33,10 @@ __EOF__
 }
 
 install_custom_python () {
-  ${tempdir}/usr/bin/python3 -m pip install ${DIR}/custom_python
+  echo "Log: Installing custom whisper bbb python"
+  cp -r ${DIR}/custom_python ${tempdir}
+  sudo chroot "${tempdir}" python -m pip install ./custom_python
+  rm -rf ${tempdir}/custom_python
 }
 
 enable_i2c1_on_startup
