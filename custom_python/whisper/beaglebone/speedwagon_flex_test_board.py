@@ -4,7 +4,8 @@ from enum import Enum
 
 import Adafruit_BBIO.ADC as ADC
 from smbus import SMBus
-from whisper.beaglebone.gpio import BbbGpioAbc
+
+from whisper.beaglebone.gpio_enum_abc import BbbGpioAbc
 from whisper.beaglebone.i2c import I2C
 
 
