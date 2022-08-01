@@ -4,6 +4,7 @@
 # This could be expanded to different BBB images in the future.
 
 enable_i2c1_on_startup () {
+  echo "Log (whisper-chroot): Adding pin configuration to startup"
   # Make the pin configuration script
   cat > configure_pins.sh <<-__EOF__
 #!/bin/bash -e
@@ -33,7 +34,7 @@ __EOF__
 }
 
 install_custom_python () {
-  echo "Log: Installing custom whisper bbb python"
+  echo "Log (whisper-chroot): Installing whisper-beaglebone python package"
   sudo cp -r ${DIR}/custom_python ${tempdir}
   sudo chroot "${tempdir}" python -m pip install ./custom_python
   sudo rm -rf ${tempdir}/custom_python
