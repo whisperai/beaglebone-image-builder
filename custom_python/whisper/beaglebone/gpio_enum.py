@@ -1,12 +1,12 @@
 """Abstract enum class to wrap an enum with Adafruit_BBIO.GPIO"""
 from enum import Enum
-from typing import Union
+from typing import Literal
 
 import Adafruit_BBIO.GPIO as ada_gpio
 from abc import ABC
 
 
-class GpioEnumAbc(Enum, ABC):
+class GpioEnum(Enum):
     """Abstract class for GPIOs"""
 
     @classmethod
@@ -21,12 +21,12 @@ class GpioEnumAbc(Enum, ABC):
         return ada_gpio.input(self.value)
 
     def wait_for_edge(
-        self, direction: Union[ada_gpio.RISING, ada_gpio.FALLING] = ada_gpio.RISING
+        self, direction: Literal[ada_gpio.RISING, ada_gpio.FALLING] = ada_gpio.RISING
     ):
         ada_gpio.wait_for_edge(self.value, direction)
 
     def add_event_detect(
-        self, direction: Union[ada_gpio.RISING, ada_gpio.FALLING] = ada_gpio.RISING
+        self, direction: Literal[ada_gpio.RISING, ada_gpio.FALLING] = ada_gpio.RISING
     ):
         ada_gpio.add_event_detect(self.value, direction)
 

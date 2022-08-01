@@ -5,7 +5,7 @@ from enum import Enum
 import Adafruit_BBIO.ADC as ADC
 from smbus import SMBus
 
-from whisper.beaglebone.gpio_enum_abc import BbbGpioAbc
+from whisper.beaglebone.gpio_enum import GpioEnum
 from whisper.beaglebone.i2c import I2C
 
 
@@ -14,7 +14,7 @@ class SpeedwagonFlexTestBoard:
 
     I2C_BUS_ID = 1
 
-    class GPIO(GpioEnumAbc):
+    class GPIO(GpioEnum):
         """Enum for GPIOs"""
 
         POWER_1V8 = "P8_46"
