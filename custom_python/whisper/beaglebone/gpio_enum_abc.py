@@ -3,7 +3,7 @@ from enum import Enum
 from typing import Union
 
 import Adafruit_BBIO.GPIO as ada_gpio
-from abstract import ABC
+from abc import ABC
 
 
 class GpioEnumAbc(Enum, ABC):
