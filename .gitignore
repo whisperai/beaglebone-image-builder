@@ -5,5 +5,9 @@ git/
 *.host
 release
 .project
+**/__pycache__
+*.egg-info
 
 .DS_Store
+.python-version
+.venv
