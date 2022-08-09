@@ -18,7 +18,7 @@ jobs:
             #image_name="${deb_distribution}-${release}-${image_type}-${deb_arch}-${time}"
             time="$(date +%Y-%m-%d)"
             image_name="debian-11.4-iot-armhf-${time}"
-            target="bbgg"
+            target="$(make releasename)"
             size="4gb"
 
             # Generic build
