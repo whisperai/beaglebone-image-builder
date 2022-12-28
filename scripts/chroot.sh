@@ -520,6 +520,7 @@ if [ "x${repo_ros}" = "xros2" ] ; then
 fi
 
 if [ "x${repo_rcnee}" = "xenable" ] ; then
+    git config --global --add safe.directory "*"
 	repo_rcnee_arch=${repo_rcnee_arch:-"armhf"}
 	repo_rcnee_mirror=${repo_rcnee_mirror:-"repos.rcn-ee.com"}
 
